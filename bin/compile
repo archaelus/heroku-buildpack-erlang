@@ -51,10 +51,18 @@ fi
 
 echo "-----> Building with Rebar"
 unset GIT_DIR
+
+if test -d "${cache}/deps" && test -d "${cache}/ebin"; then
+  cp -a "${cache}/deps" "${cache}/ebin" .
+fi
+
 ./rebar get-deps compile 2>&1 | sed -u 's/^/       /'
 if [ ${PIPESTATUS[0]} -ne 0 ]; then
   echo "-----> Build failed"
   exit 1
 fi
+
+rm -rf "${cache}/deps" "${cache}/ebin"
+cp -a deps ebin "${cache}"
 
 echo "-----> Build succeeded"
