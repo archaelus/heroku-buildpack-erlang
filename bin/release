@@ -6,7 +6,7 @@ procfile=$(cat Procfile)
 cat << EOF
 ---
 config_vars:
-PATH: /app/otp/bin:bin:/usr/bin:/bin
+	PATH: /app/otp/bin:bin:/usr/bin:/bin
 default_process_types:
-$procfile
+	$procfile
 EOF
